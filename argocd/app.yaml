@@ -1,0 +1,25 @@
+# argocd/app-student-api.yaml
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: student-api
+  namespace: argocd
+spec:
+  project: homelab            
+  source:
+    repoURL: https://github.com/KirilMilosevski/ArgoCD.git   
+    targetRevision: main
+    path: student-stack
+    helm:
+      valueFiles:
+        - values.yaml                                   
+  destination:
+    server: https://kubernetes.default.svc                      
+    namespace: student-api
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
+

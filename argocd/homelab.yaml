@@ -5,13 +5,13 @@ metadata:
   name: homelab
   namespace: argocd
 spec:
-  description: Homelab apps
+  description: Homelab
   sourceRepos:
-    - 'https://github.com/<YOUR_GH_USER>/<YOUR_REPO>.git'
+    - 'https://github.com/KirilMilosevski/ArgoCD.git'
   destinations:
     - namespace: '*'
       server: https://kubernetes.default.svc
   clusterResourceWhitelist:
     - group: '*'
       kind: '*'
-:
+
