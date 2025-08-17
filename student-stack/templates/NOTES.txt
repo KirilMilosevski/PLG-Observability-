@@ -1,0 +1,11 @@
+Thanks for installing {{ .Chart.Name }}!
+App service:
+  {{- if eq .Values.service.type "NodePort" }}
+  NodePort: {{ .Values.service.nodePort }}  -> http://<HOMELAB_IP>:{{ .Values.service.nodePort }}
+  {{- else }}
+  Service type: {{ .Values.service.type }}
+  {{- end }}
+Postgres service:
+  DNS: {{ .Values.postgres.serviceName }}.{{ .Release.Namespace }}.svc.cluster.local:{{ .Values.postgres.port }}
+Check secrets & pods:
+  kubectl -n {{ .Release.Namespace }} get externalsecret,secrets,pods

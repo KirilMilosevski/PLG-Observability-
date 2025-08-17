@@ -1,0 +1,62 @@
+# Global settings
+nameOverride: ""
+fullnameOverride: ""
+
+image:
+  repository: kiril011/student-api
+  tag: "latest"
+  pullPolicy: IfNotPresent
+
+replicas: 1
+
+service:
+  type: NodePort         # ClusterIP | NodePort | LoadBalancer
+  port: 3000             # service port
+  targetPort: 3000       # container port
+  nodePort: 30080        # only if type=NodePort
+
+ingress:
+  enabled: false
+  className: ""
+  hosts:
+    - host: student.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+resources: {}
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+db:
+  host: "postgres.student-api.svc.cluster.local"
+  port: 5432
+  name: "studentdb"
+
+secrets:
+  useExternalSecrets: true
+  secretStoreRef:
+    name: secretstore
+    kind: SecretStore
+  app:
+    name: app-credentials
+    keys:
+      userKey: DB_USER
+      passKey: DB_PASS
+  db:
+    name: db-credentials
+    keys:
+      userKey: POSTGRES_USER
+      passKey: POSTGRES_PASSWORD
+      dbKey: POSTGRES_DB
+
+postgres:
+  enabled: true
+  image: postgres:15
+  port: 5432
+  replicas: 1
+  resources: {}
+  serviceName: postgres
