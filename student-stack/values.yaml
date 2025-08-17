@@ -39,8 +39,8 @@ db:
 secrets:
   useExternalSecrets: true
   secretStoreRef:
-    name: ClusterSecretStore
-    kind: vault-secretstore
+    kind: ClusterSecretStore
+    name: vault-secretstore
   app:
     name: app-credentials
     keys:
