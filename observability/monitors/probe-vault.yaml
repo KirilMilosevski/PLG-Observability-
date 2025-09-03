@@ -1,0 +1,17 @@
+# observability/monitors/probe-vault.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: probe-vault
+  namespace: observability
+spec:
+  jobName: blackbox-vault
+  prober:
+    url: http://prometheus-blackbox-exporter.observability.svc:9115
+  module: http_2xx
+  targets:
+    staticConfig:
+      static:
+        - http://vault.vault.svc:8200     # dev mode Vault base URL
+
+

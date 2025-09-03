@@ -1,0 +1,16 @@
+# observability/monitors/probe-argocd.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: probe-argocd
+  namespace: observability
+spec:
+  jobName: blackbox-argocd
+  prober:
+    url: http://prometheus-blackbox-exporter.observability.svc:9115
+  module: http_2xx
+  targets:
+    staticConfig:
+      static:
+        - https://argocd-server.argocd.svc.cluster.local:443
+

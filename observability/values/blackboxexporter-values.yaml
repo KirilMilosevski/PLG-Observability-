@@ -1,0 +1,8 @@
+# observability/values/blackbox-exporter.values.yaml
+serviceMonitor:
+  enabled: true    # monitor the exporter itself
+# default modules already include http_2xx and tcp_connect
+resources: {}
+service:
+  type: ClusterIP
+

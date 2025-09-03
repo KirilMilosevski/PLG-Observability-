@@ -1,0 +1,25 @@
+# observability/values/kube-prometheus-stack.values.yaml
+grafana:
+  enabled: false
+
+alertmanager:
+  enabled: false   # set true later if you want alerts
+
+kube-state-metrics:
+  enabled: true
+
+nodeExporter:
+  enabled: true
+
+prometheus:
+  service:
+    type: ClusterIP
+  prometheusSpec:
+    # Allow picking up *all* ServiceMonitor/PodMonitor/Probe by default
+    serviceMonitorSelectorNilUsesHelmValues: false
+    podMonitorSelectorNilUsesHelmValues: false
+    probeSelectorNilUsesHelmValues: false
+    # (Optional) scrape interval defaults
+    scrapeInterval: 30s
+    evaluationInterval: 30s
+

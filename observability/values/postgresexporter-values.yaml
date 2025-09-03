@@ -1,0 +1,26 @@
+# observability/values/postgres-exporter.values.yaml
+service:
+  type: ClusterIP
+
+serviceMonitor:
+  enabled: true
+
+# configure connection via env vars
+env:
+  - name: DATA_SOURCE_URI
+    value: "postgres.student-api.svc.cluster.local:5432/studentdb?sslmode=disable"
+  - name: DATA_SOURCE_USER
+    valueFrom:
+      secretKeyRef:
+        name: db-credentials
+        key: POSTGRES_USER
+        optional: false
+  - name: DATA_SOURCE_PASS
+    valueFrom:
+      secretKeyRef:
+        name: db-credentials
+        key: POSTGRES_PASSWORD
+        optional: false
+
+extraSecretMounts: []
+

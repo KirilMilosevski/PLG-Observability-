@@ -1,0 +1,16 @@
+# observability/monitors/probe-student-api.yaml
+apiVersion: monitoring.coreos.com/v1
+kind: Probe
+metadata:
+  name: probe-student-api
+  namespace: observability
+spec:
+  jobName: blackbox-student-api
+  prober:
+    url: http://prometheus-blackbox-exporter.observability.svc:9115
+  module: http_2xx
+  targets:
+    staticConfig:
+      static:
+        - http://student-api-student-stack.student-api.svc:3000/
+
